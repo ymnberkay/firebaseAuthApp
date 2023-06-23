@@ -12,6 +12,7 @@ struct FirstScreen: View {
     var body: some View {
         VStack {
             Text("Firebase Login app")
+                .font(.largeTitle)
                 .padding()
             //MARK: -user name text field
             TextField("Enter user name", text: $viewModel.user.userName)
@@ -35,6 +36,9 @@ struct FirstScreen: View {
                 Button("Login", action: {
                     viewModel.login()
                 })
+                .fullScreenCover(isPresented: $viewModel.isLoggedIn, content: {
+                    SecondScreen()
+                })
                 .frame(width: 90.0, height: 40.0)
                 .border(Color.red, width: 1)
                 .padding()
@@ -43,13 +47,6 @@ struct FirstScreen: View {
                 Button("Sign up", action: {
                     viewModel.signUp()
                     
-                })
-                .frame(width: 90.0, height: 40.0)
-                .border(Color.red, width: 1)
-                .padding()
-                
-                Button("Log out", action: {
-                    viewModel.logOut()
                 })
                 .frame(width: 90.0, height: 40.0)
                 .border(Color.red, width: 1)

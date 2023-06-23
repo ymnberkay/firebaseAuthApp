@@ -11,8 +11,8 @@ import FirebaseCore
 import FirebaseFirestore
 import FirebaseAuth
 
-extension FirstScreen {
-    @MainActor class MainVievModel: ObservableObject {
+
+    class MainVievModel: ObservableObject {
         @Published var user = User(userName: "", password: "")
         @Published var isLoggedIn = false
         
@@ -50,6 +50,7 @@ extension FirstScreen {
             DispatchQueue.main.async {
                 do {
                     try Auth.auth().signOut()
+                    self.isLoggedIn = false
                 } catch let signOutError as NSError {
                     print("Error signing out: %@", signOutError)
                 }
@@ -58,5 +59,5 @@ extension FirstScreen {
             }
         }
     }
-}
+
 
