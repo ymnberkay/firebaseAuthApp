@@ -8,24 +8,25 @@
 import SwiftUI
 
 struct SecondScreen: View {
-    @Environment(\.presentationMode) var presentationMode
     @StateObject var viewModel = MainVievModel()
     
     var body: some View {
-        VStack {
-            Text("Login successful")
-                .padding()
-                .font(.largeTitle)
-            Button("Log out", action: {
-                viewModel.logOut()
-                if(!viewModel.isLoggedIn){
-                    presentationMode.wrappedValue.dismiss()
-                }
-            })
-            .frame(width: 90.0, height: 40.0)
-            .border(Color.red, width: 1)
-            .padding()
-        }
+        NavigationView {
+            VStack {
+                NavigationLink("", destination: FirstScreen(), isActive: $viewModel.isLoggedOut)
+                    Text("Login successful")
+                        .padding()
+                        .font(.largeTitle)
+                    Button("Log out", action: {
+                        viewModel.logOut()
+                    })
+                    .frame(width: 90.0, height: 40.0)
+                    .border(Color.red, width: 1)
+                    .padding()
+            }
+        }.navigationBarBackButtonHidden(true)
+            .edgesIgnoringSafeArea(.all)
+
     }
 }
 

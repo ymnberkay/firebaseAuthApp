@@ -7,14 +7,13 @@
 
 import Foundation
 import SwiftUI
-import FirebaseCore
-import FirebaseFirestore
 import FirebaseAuth
 
 
     class MainVievModel: ObservableObject {
         @Published var user = User(userName: "", password: "")
         @Published var isLoggedIn = false
+        @Published var isLoggedOut = false
         
         func login(){
             DispatchQueue.main.async {
@@ -50,7 +49,7 @@ import FirebaseAuth
             DispatchQueue.main.async {
                 do {
                     try Auth.auth().signOut()
-                    self.isLoggedIn = false
+                    self.isLoggedOut = true
                 } catch let signOutError as NSError {
                     print("Error signing out: %@", signOutError)
                 }
